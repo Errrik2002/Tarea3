@@ -1,0 +1,12 @@
+"0","```r
+library(igraph)
+karatekid <- make_graph(\"Zachary\")
+katbet <- betweenness(karatekid)
+katbet
+
+kateig <- eigen_centrality(karatekid)
+kateig
+
+katpag <- page_rank(karatekid)
+katpag
+```"

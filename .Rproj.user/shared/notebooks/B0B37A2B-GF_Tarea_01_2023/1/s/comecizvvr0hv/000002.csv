@@ -1,0 +1,20 @@
+"0","```r
+library(igraph)
+
+
+based<-read.csv(\"GF_Tarea_01_2023_files1/RedAmiguesPonderadaGF2023 - Hoja 1.tsv\",dec=\",\",sep=\"\t\")
+based<- based[,-1] #eliminar la columna de nombre
+rownames(based)<- colnames(based) #asignar los nombres de renglones a columnas
+baselim <-based[-c(3,15,32),-c(3,15,32)] #eliminar los que no ontestaron, haciendola simetrica
+baselim<- as.matrix(baselim) #pasarla a matrix
+diag(baselim)<- 0 #eliminar valores en la diagonal
+nopondecasa <- ifelse(baselim>=0.5,1,0) #poner el valor de la red, para hacerla no pesada
+redcasa_noponde <- graph_from_adjacency_matrix(nopondecasa,mode= \"directed\")  #asignarla a un objeto de igraph
+###################
+
+sort(degree(redcasa_noponde, mode=\"in\"), decreasing = T)[1:2]
+
+#las personas más famosas son Mayra y Vale Ibarra por que son las que más gente considera su amigo
+
+
+```"

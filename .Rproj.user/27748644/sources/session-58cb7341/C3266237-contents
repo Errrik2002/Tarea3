@@ -1,0 +1,514 @@
+library(igraph)
+
+
+ask2 <- random.graph.game(10,25,type= "gnm", directed = T) #el numero 25 lo toma como
+#probabilidad, por eso hay que ponerle que es tipo "gnm" para que en vez de tomarlo como
+#probabilidad lo tome como numero de conexiones
+ask2
+
+plot(ask2)
+
+outdis <- degree.distribution(ask2, mode="out")
+plot(outdis)
+
+salida <- degree(ask2, mode="out") #nos da el total de conexiones d eentrada
+sum(salida)
+
+entrada <- degree(ask2, mode="in")
+sum(entrada)
+
+#dan el mismo valor, por que en si, loq eu esta saliendo de un nodo, debe de entrar a otro
+#a menos que ese nodo solo salga y se quede "varado" en el infinito y nunca entre nada
+#algo que no pasa, pq los nodos que salen si se conectan implican que tambien entran
+
+
+mean(entrada)
+mean(salida)
+
+
+ask3 <- random.graph.game(3,3,type = "gnm")
+plot(ask3)
+
+ask3a <- random.graph.game(4,6,type = "gnm")
+plot(ask3a)
+###############pregunta 3 a 4
+
+
+
+
+nod6 <- random.graph.game(6,15,type= "gnm", directed =T)
+plot(nod6)
+
+
+nod4 <- random.graph.game(4,6,type= "gnm", directed = T)
+plot(nod4)
+#####################ejercicios
+karatekid1<-make_graph("Zachary")
+
+plot(karatekid)
+karatekid1
+
+
+limite <- (34*(33))/2
+limite
+
+78/561
+
+class(karatekid)
+
+karatekid <- as.matrix(karatekid)
+karatekid
+View(karatekid)
+
+
+karatekid2 <- as_adjacency_matrix(karatekid1)
+
+karatekid2
+View(karatekid2)
+
+karatekid1
+
+distriedg <- degree.distribution(karatekid1)
+plot(distriedg)
+
+
+
+diameter(karatekid1)
+
+
+distmatrx <- distances(karatekid1)
+distmatrx <- as.matrix(distmatrx)
+View(distmatrx)
+
+
+
+mean_distance(karatekid1)
+
+
+distances(karatekid1)
+
+length(V(karatekid1))
+
+max(distances(karatekid1))
+
+distmatrx[distmatrx=5 , distmatrx=5]
+
+#- Encuentra la trayectoria de los nodos más alejados.
+#- Existen nodos con coefeiciente de clusterización 1. ¿Qué significa?
+# - Mide , con al menos tres medidas de centralidad, los nodos más importantes.
+
+based<-read.csv("datA_RAW/RedAmiguesPonderadaGF2023 - Hoja 1.tsv",dec=",",sep="\t")
+View(based)
+
+
+based<- based[,-1]
+
+based
+rownames(based)<- colnames(based)
+
+
+baselim <-based[-c(3,15,32),-c(3,15,32)]
+baselim
+
+View(baselim)
+
+
+baselim<- as.matrix(baselim)
+
+diag(baselim)<- 0
+diag(baselim)
+
+
+nopondecasa <- ifelse(baselim>=0.5,1,0) #ya funciona el ifelse, con el cambio de CSV a TSV
+
+View(nopondecasa)
+
+
+redcasa_noponde <- graph_from_adjacency_matrix(nopondecasa,mode= "directed")
+#siemrpe poner el modo que es
+
+plot(redcasa_noponde)
+
+#######################08/03/2023
+
+#scribe una función que calcule el número de amigos que tiene cualquier persona arbitraria y lo compare con el número de los amigos de estos.
+#- Escribe una función que te de la trayectoria más larga entre dos nodos arbitrarios de la red.
+#- Enceuntra las dos personas más populares.
+
+degree(redcasa_noponde)
+
+
+
+
+
+
+
+
+
+###############
+
+ekiz <- c(sample(1:length(V(redcasa_noponde)),1))
+ekiz
+redcasa_noponde
+nombamigo <- redcasa_noponde[ekiz,]
+nombamigo
+sum(nombamigo) 
+
+nombamigo[c("samuel")] #debo escoger los que tienen más de 1
+
+
+
+sacarn[T,]# encontrar la forma de sacar los nombres que tengan TRUE
+nombamigo[1:which(V(nombamigo)==1)[1]] #extraer los datos que tengan valor de 1
+
+#
+nombamigo1 <- as.matrix(nombamigo)
+
+
+redcasa_noponde[ekiz]
+
+
+
+nombres <- V(redcasa_noponde)
+nombres[ekiz] #con esto sacamos el nombre de la persona
+
+
+amigos <- which(nombamigo1 == 1)
+amigos  #sacamos los numeros de las personas que son sus amigos o k el considera
+
+amigos
+
+
+length(amigos)
+
+amigos[1] #extraemos el valor de la persona que es su amigos el primero que e spedro
+
+# sumamos para sacar el segundo, que es el 4 y debe ser samuel
+numero <- amigos[2]
+persona <- nombres[numero]
+
+
+redcasa_noponde[2]
+
+nombres[2]#### sacamos el numbre de uno de sus amigos el primero que es el numero 2
+redcasa_noponde[numero]
+sum(redcasa_noponde[numero])
+ekiz
+nombres[ekiz]
+length()
+nombres[numero]
+
+for(i in length(amigos)) {
+  ekiz <- c(sample(1:length(V(redcasa_noponde)),1))
+  ekiz
+  a <- 1
+  numero <- amigos[a]
+  nombres[numero]
+  
+  name <- nombres[ekiz]
+  name[1]
+  
+  personaami <- sum(redcasa_noponde[numero])
+  
+  
+  
+  
+  nombamigo1[numero]
+  print(paste0( name[1],"tiene una cantidad de amigos", length(amigos),"y su amigo", nombres[numero], "tiene", sum(redcasa_noponde[numero]), "amigos" ))
+  
+  
+}
+name <- nombres[ekiz]
+name[1]
+
+
+
+
+redprueba
+
+
+
+
+library(igraphdata
+)
+
+find_all_paths(redcasa_noponde)
+
+
+
+
+
+install.packages("igraphdata")                         
+
+help(igraphdata)
+
+data(package="igraphdata")
+
+library(igraphdata)
+levadura <- graph.adjacency("yeast")
+
+data(yeast)
+
+
+
+
+
+
+
+
+sort(degree(redcasa_noponde, mode="in"), decreasing = T)[1:2]
+
+
+
+
+
+library(igraph)
+library(igraphdata)
+
+
+karatekid <- make_graph("Zachary")
+
+plot(karatekid)
+
+get_diameter(karatekid)
+degree(karatekid)
+lejos<-distances(karatekid)
+
+
+lejos[x,n]
+x
+n
+
+road <- shortest_paths(karatekid, 15,17)
+road
+
+
+
+########################KARATE#########
+x <- 1
+n<- 1
+for (i in 1:1156) {
+  
+  primos <- lejos[x,n]
+  
+  if(primos==5){
+    print(paste0(x,n))
+  }
+  n <- n+1
+  
+  if(n==34){
+    x <- +1
+    n<- 1
+  }
+}
+
+###########################
+
+
+
+#############YEAST########
+
+library(igraphdata)
+
+data(yeast)
+class(yeast)
+plot(yeast)
+yeast
+log(log(2617))
+plot(degree.distribution(yeast, mode="all"))
+
+
+lev <- degree(yeast, mode="in")
+
+lev
+
+fit1 <- fit_power_law(lev+1,10)
+fit1$alpha
+
+fit1$logLik
+
+#- Encuentre qué tipo de distribución de conectividades tiene. Haz un ajuste en log-log para ver que tipo de distribución podría ser.
+lev <- degree(yeast, mode="in")
+
+lev
+
+fit1 <- fit_power_law(lev+1,10)
+fit1$alpha
+
+fit1$logLik #????????
+
+
+#- Encuentra las diez proteínas más conectadas
+degree(yeast)
+
+uno <- sort(degree(yeast), decreasing = T)[1:100]
+delete.vertices(yeast, uno)
+mean_distance(yeast)
+
+#- Calcula el diámetro y promedio de las distancias
+diameter(yeast)
+
+mean_distance(yeast)
+
+#- Crea una función que, a partir de  eliminar al azar un noodo de la red genere el promedio d elas distancias después de eliminar $n=1,2,3,\ldots, 100$ nodos al azar
+
+promelim <- function(x){
+  for (i in 1:100) {
+
+   x <- delete.vertices(x,c(sample(1:length(V(x)),1))) #eliminam sample(1:length(V(x)),1), donde sacamos los valores o vemos los valores del 1 a la longitud de V (NODOS)
+  #de la red que es ekiz y el 1 al final se especifica pq solo queremos uno valor, si quisieramos mas ponemos mas valores ahi y ese 1 pertenece a la funcion sample
+  print(paste0("el promedio de las distancias es ", mean_distance(x)))
+  
+  } 
+}
+
+promelim(yeast)
+
+#- Crea una función que elimine las proteínas más conectadas y calcule el promedio de las distancias cad vez que se remueve un nodo.
+
+
+
+eliminfamo <- function(x,nm){
+
+  masprot <- sort(degree(yeast), decreasing = T)[1:nm]
+masprot
+p <- 1
+for (i in 1:nm) {
+  
+  x <- delete.vertices(x, masprot[p])
+  
+  p <- p+1
+
+  print(paste0("El promedio de las distancias ahora es ", mean_distance(x)))
+    
+}
+
+}
+eliminfamo(yeast,10)
+data(yeast)
+
+#- Calcula el proemdio del coeficiente de clusterización. ¿Hay proteínas que tengan un coeficiente de clusterización de 1? Eso qué significa.
+
+transitivity(yeast,type="local")
+
+
+
+
+library(igraph)
+cerebro <- read.graph("datA_RAW/bn-mouse_visual-cortex_1.edges")
+plot(cerebro)
+
+bet2 <- betweenness(cerebro)
+bet2
+
+eig2 <- eigen_centrality(cerebro)
+eig2
+
+pag2 <- page_rank(cerebro)
+pag2
+
+
+
+
+
+plot(cerebro, layout= layout_as_bipartite(cerebro))### no sale
+
+plot(cerebro, layout= layout_as_star(cerebro))
+
+plot(cerebro, layout= layout_as_tree(cerebro))
+
+plot(cerebro, layout= layout_in_circle(cerebro))
+
+plot(cerebro, layout= layout_nicely(cerebro))
+
+plot(cerebro, layout= layout_on_grid(cerebro))
+
+plot(cerebro, layout= layout_on_sphere(cerebro))
+
+plot(cerebro, layout= layout_randomly(cerebro))
+
+plot(cerebro, layout= layout_with_dh(cerebro))
+
+plot(cerebro, layout= layout_with_fr(cerebro))
+
+plot(cerebro, layout= layout_with_gem(cerebro))
+
+plot(cerebro, layout= layout_with_graphopt(cerebro))
+
+plot(cerebro, layout= layout_with_kk(cerebro))
+
+plot(cerebro, layout= layout_with_lgl(cerebro))
+
+plot(cerebro, layout= layout_with_mds(cerebro))
+
+plot(cerebro, layout= layout_with_sugiyama(cerebro))
+
+
+karatekid <- make_graph("Zachary")
+
+max(distances(karatekid))
+
+get_diameter(karatekid)
+
+help(get_diameter)
+
+plot(karatekid)
+
+
+
+amigosreales <- read.csv("scripts/GF_Tarea_01_2023_files1/red_reales.csv")
+
+amigosreales <- amigosreales[,-1]
+rownames(amigosreales) <- colnames(amigosreales)
+
+amigosreales <- as.matrix(amigosreales)
+
+
+redreales <- graph_from_adjacency_matrix(amigosreales, mode= "undirected")
+
+
+plot(redreales)
+
+transitivity(redreales, type = "local")
+
+V(redreales)$name[1]
+
+
+
+redcasa_noponde
+direct <- get.adjacency(redcasa_noponde)
+direct
+
+max1 <- vcount(redcasa_noponde)-1
+max1
+for(i in 0:max1)
+  for(j in 0:max1)
+    direct[i,j] <- length(get.all.shortest.paths(redcasa_noponde, from = i, to= j, mode="out"))
+    
+    
+
+maximostray <- function(base1){
+  max1 <- vcount(base1)-1
+  a<- 1
+  b<-1
+  direct <- get.adjacency(base1)
+  direct
+  
+  for (i in 0:max1) {
+    a<- a+1
+    b<- b+1
+  }
+  for (k in 0:max1) {
+  
+    b<- b+1
+  }
+  
+ redcasa_noponde[i,k]<- length(get.all.shortest.paths(base1,from=i, to= k, mode="out"))
+  print(paste0("el camino más largo es ", redcasa_noponde[i,k]))
+  
+  
+}
+
+maximostray(redcasa_noponde)
+
+

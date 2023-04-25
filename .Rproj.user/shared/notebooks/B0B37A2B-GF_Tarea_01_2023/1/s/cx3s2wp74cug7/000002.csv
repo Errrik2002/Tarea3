@@ -1,0 +1,6 @@
+"0","```r
+library(igraph)
+karatekid<-make_graph(\"Zachary\")
+karatekid <- as.matrix(karatekid)
+karatekid
+```"

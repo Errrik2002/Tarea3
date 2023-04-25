@@ -1,0 +1,12 @@
+"0","```r
+library(igraph)
+karatekid<-make_graph(\"Zachary\")
+plot(karatekid)
+
+diameter(karatekid) #sacamos el diametro con la función
+
+distmatrx <- distances(karatekid) #hacemos el objeto con las distancias que las da como matrix
+distmatrx <- as.matrix(distmatrx) #hacemos el objeto a matrix
+
+mean_distance(karatekid) #sacamos el promedio de las distancias
+```"

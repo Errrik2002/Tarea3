@@ -1,0 +1,8 @@
+"0","```r
+library(igraph)
+karatekid<-make_graph(\"Zachary\")
+
+#sacamos los valores de conexiones, pero los graficamos de una vez con la función degree.dsitribution() y lo ploteamos
+distriedg <- degree.distribution(karatekid)
+plot(distriedg)
+```"

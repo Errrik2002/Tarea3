@@ -1,0 +1,49 @@
+"0","```r
+library(igraph)
+
+
+based<-read.csv(\"GF_Tarea_01_2023_files1/RedAmiguesPonderadaGF2023 - Hoja 1.tsv\",dec=\",\",sep=\"\t\")
+based<- based[,-1] #eliminar la columna de nombre
+rownames(based)<- colnames(based) #asignar los nombres de renglones a columnas
+baselim <-based[-c(3,15,32),-c(3,15,32)] #eliminar los que no ontestaron, haciendola simetrica
+baselim<- as.matrix(baselim) #pasarla a matrix
+diag(baselim)<- 0 #eliminar valores en la diagonal
+nopondecasa <- ifelse(baselim>=0.5,1,0) #poner el valor de la red, para hacerla no pesada
+redcasa_noponde <- graph_from_adjacency_matrix(nopondecasa,mode= \"directed\")  #asignarla a un objeto de igraph
+###################
+
+
+amigosfun <- function(x){
+  
+  vato <- c(sample(1:length(V(x)),1)) #sacamos a una persona al azar de la base de datos
+  #(V(x)$name[ekiz])
+  conocidos <- x[vato,] #sacamos todas sus \"conexiones\" del vato (conocidos y amigos)
+  conomatrix <- as.matrix(conocidos) #lo pasamos a matrix
+  
+  reales <- which(conomatrix == 1) #seleccionamos solo aquellos que son sus amigos, quitando a los conocidos (aquellos que no considera amigos = 0) y lo asignamos a reales (que son sus amigos de verdad)
+  
+ 
+  cantidad <- length(reales) #la cantidad o length(reales) y sera la cantidad de amigos que el tiene, pq solo incluye a aquellos que si son amigos
+  
+  pe <- 1 #asignamos una variable de conteo
+  for (i in 1:length(reales)) {  #empezamos un for, que sera del tamaño de sus amigos reales, para comprobar todos sus amigos con el
+  
+    
+    suamigo <-reales[pe] #saca el primer numero de su primer amigo, que es un objeto de la red inicial
+    
+    #(V(x)$name)[suamigo] nombre de su amigo , sacamos el nombre de su amigo respecto al valor de los reales que nos da un numero del objeto original igraph
+    amigos_d_ami <- sum(x[suamigo]) #hacemos la suma de su amigo, sera el numero de sus amigos, pues solo aquellos que tienen valor de 1 seran considerados entonces una unidad 1, es un amigo, se suman los 1 y da el valor total de amigos, es lo mismo si hacemos un objeto que seleccione a los que tienen valor de 1, y sacar el length()
+    
+   
+    
+    
+    print(paste0((V(x)$name[vato]), \" tiene \", length(reales), \" amigos, mientras que su amigx \", (V(x)$name)[suamigo], \" tiene \", amigos_d_ami )) 
+   
+    pe <- pe + 1 #va aumentando el valor de pe, para que el siguiente, saque el numero de la posicion 2 dle vector de los amigos reales de la persona arbitraria
+    
+    #asi hasta que cabe con todos los amigos
+}
+  }
+redprueba <- redcasa_noponde
+amigosfun(redprueba) 
+```"

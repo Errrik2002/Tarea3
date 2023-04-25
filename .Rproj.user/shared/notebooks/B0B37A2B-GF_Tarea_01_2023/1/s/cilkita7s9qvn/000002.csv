@@ -1,0 +1,11 @@
+"0","```r
+library(igraph)
+nod3 <- random.graph.game(3,3,type= \"gnm\", directed = F)
+plot(nod3)
+nod4 <- random.graph.game(4,6,type= \"gnm\", directed = F)
+plot(nod4)
+nod5 <- random.graph.game(5,10,type= \"gnm\", directed =F)
+plot(nod5)
+nod6 <- random.graph.game(6,15,type= \"gnm\", directed =F)
+plot(nod6)
+```"

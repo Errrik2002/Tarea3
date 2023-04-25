@@ -1,0 +1,57 @@
+"0","```r
+library(igraph)
+library(igraphdata)
+data(yeast)
+#- Encuentre qué tipo de distribución de conectividades tiene. Haz un ajuste en log-log para ver que tipo de distribución podría ser.
+plot(degree.distribution(yeast, mode = \"all\"))
+lev <- degree(yeast, mode=\"in\")
+
+fit1 <- fit_power_law(lev+1,10)
+fit1$alpha
+
+fit1$logLik 
+#- Encuentra las diez proteínas más conectadas
+uno <- sort(degree(yeast), decreasing = T)[1:100]
+delete.vertices(yeast, uno)
+mean_distance(yeast)
+#- Calcula el diámetro y promedio de las distancias
+diameter(yeast)
+mean_distance(yeast)
+#- Crea una función que, a partir de  eliminar al azar un noodo de la red genere el promedio d elas distancias después de eliminar $n=1,2,3,\ldots, 100$ nodos al azar
+
+promelim <- function(x){
+  for (i in 1:100) {
+
+   x <- delete.vertices(x,c(sample(1:length(V(x)),1))) #eliminam sample(1:length(V(x)),1), donde sacamos los valores o vemos los valores del 1 a la longitud de V (NODOS)
+  #de la red que es ekiz y el 1 al final se especifica pq solo queremos uno valor, si quisieramos mas ponemos mas valores ahi y ese 1 pertenece a la funcion sample
+  print(paste0(\"el promedio de las distancias es \", mean_distance(x)))
+  
+  } 
+}
+promelim(yeast)
+
+#- Crea una función que elimine las proteínas más conectadas y calcule el promedio de las distancias cad vez que se remueve un nodo.
+
+eliminfamo <- function(x,nm){
+
+  masprot <- sort(degree(yeast), decreasing = T)[1:nm]
+masprot
+p <- 1
+for (i in 1:nm) {
+  
+  x <- delete.vertices(x, masprot[p])
+  
+  p <- p+1
+
+  print(paste0(\"El promedio de las distancias ahora es \", mean_distance(x)))
+    
+}
+
+}
+eliminfamo(yeast,10)
+data(yeast)
+
+#- Calcula el proemdio del coeficiente de clusterización. ¿Hay proteínas que tengan un coeficiente de clusterización de 1? Eso qué significa.
+transitivity(yeast)#este es el promedio
+transitivity(yeast,type=\"local\") #saca el promedio de cada una
+```"

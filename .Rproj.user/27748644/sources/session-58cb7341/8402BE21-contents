@@ -1,0 +1,50 @@
+library (Biostrings)
+
+listeria <- readDNAStringSet("schulr/lmon.fasta")
+listeria
+
+IRanges()
+
+frag <- listeria[]
+long <- width (listeria)
+
+readseq <- floor (runif(1, min=1, max=800))
+readseq
+readseq300n <- readseq+300
+readseq300n
+clostridium$`NC_009495.1 Clostridium botulinum A str. ATCC 3502, complete sequence`[readseq:readseq300n]
+
+
+
+
+
+for (i in 1:10) {
+
+  long <- width(listeria)
+  
+  readseq <- floor(runif(1, min=1, max=long))
+  
+  readseq50n <- readseq + 50
+  
+  seqcorta <- listeria$`M80526.1 Listeria monocytogenes superoxide dismutase (SOD) gene, complete cds`[readseq:readseq50n, ]
+  
+  print(seqcorta)
+  
+  chamba <- list (i)
+  
+  print(i)
+  
+  print (chamba)
+  
+  my_list[[i]] <- seqcorta
+
+}
+
+print(chamba)
+
+my_list <- c()
+
+for(i in 1:2) {                 # Head of for-loop
+  output <- rep(i, 5)           # Output of iteration i
+  my_list[[i]] <- output        # Store output in list
+}

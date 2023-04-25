@@ -1,0 +1,27 @@
+"0","```r
+library(igraph)
+ask2 <- random.graph.game(10,25,type= \"gnm\", directed = T) #el numero 25 lo toma como
+#probabilidad, por eso hay que ponerle que es tipo \"gnm\" para que en vez de tomarlo como
+#probabilidad lo tome como numero de conexiones
+ask2
+
+plot(ask2)
+
+outdis <- degree.distribution(ask2, mode=\"out\")
+plot(outdis)
+
+salida <- degree(ask2, mode=\"out\") #nos da el total de conexiones d eentrada
+sum(salida)
+
+entrada <- degree(ask2, mode=\"in\")
+sum(entrada)
+
+#dan el mismo valor, por que en si, loq eu esta saliendo de un nodo, debe de entrar a otro
+#a menos que ese nodo solo salga y se quede \"varado\" en el infinito y nunca entre nada
+#algo que no pasa, pq los nodos que salen si se conectan implican que tambien entran
+
+
+mean(entrada)
+mean(salida)
+
+```"

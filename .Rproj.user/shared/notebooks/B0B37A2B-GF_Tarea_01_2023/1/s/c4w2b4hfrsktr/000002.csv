@@ -1,0 +1,7 @@
+"0","```r
+library(igraph)
+karatekid <- make_graph(\"Zachary\")
+
+get_diameter(karatekid)
+# nos da la trayectoria de los mas alejados que son usados en el diametro
+```"

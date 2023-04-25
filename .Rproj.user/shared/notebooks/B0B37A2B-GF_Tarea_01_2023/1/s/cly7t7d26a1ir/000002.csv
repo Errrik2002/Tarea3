@@ -1,0 +1,23 @@
+"0","```r
+library(igraph)
+
+amigosreales <- read.csv(\"GF_Tarea_01_2023_files1/red_reales.csv\")
+
+amigosreales <- amigosreales[,-1]
+rownames(amigosreales) <- colnames(amigosreales)
+
+amigosreales <- as.matrix(amigosreales)
+
+
+redreales <- graph_from_adjacency_matrix(amigosreales, mode= \"undirected\")
+
+
+plot(redreales)
+
+transitivity(redreales, type = \"local\") #sacamos el coeficiente de lcusterizacion de cada persona y como soy la primera persona el coeficiente de 0.33 es mio
+
+V(redreales)$name[1]
+
+
+
+```"

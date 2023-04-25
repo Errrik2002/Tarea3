@@ -1,0 +1,54 @@
+"0","```r
+library(igraph)
+
+cerebro <-read.graph(\"GF_Tarea_01_2023_files1/bn-mouse_visual-cortex_1.edges\")
+
+
+plot(cerebro)
+
+bet2 <- betweenness(cerebro)#metodo de centrality 
+bet2
+
+eig2 <- eigen_centrality(cerebro) #metodo de centrality
+eig2
+
+pag2 <- page_rank(cerebro) #metodo de centrality
+pag2
+
+
+#todos los layouts disponibles
+
+
+
+
+plot(cerebro, layout= layout_as_star(cerebro))
+
+plot(cerebro, layout= layout_as_tree(cerebro))
+
+plot(cerebro, layout= layout_in_circle(cerebro))
+
+plot(cerebro, layout= layout_nicely(cerebro))
+
+plot(cerebro, layout= layout_on_grid(cerebro))
+
+plot(cerebro, layout= layout_on_sphere(cerebro))
+
+plot(cerebro, layout= layout_randomly(cerebro))
+
+plot(cerebro, layout= layout_with_dh(cerebro))
+
+plot(cerebro, layout= layout_with_fr(cerebro))
+
+plot(cerebro, layout= layout_with_gem(cerebro))
+
+plot(cerebro, layout= layout_with_graphopt(cerebro))
+
+plot(cerebro, layout= layout_with_kk(cerebro))
+
+plot(cerebro, layout= layout_with_lgl(cerebro))
+
+plot(cerebro, layout= layout_with_mds(cerebro))
+
+plot(cerebro, layout= layout_with_sugiyama(cerebro))
+
+```"

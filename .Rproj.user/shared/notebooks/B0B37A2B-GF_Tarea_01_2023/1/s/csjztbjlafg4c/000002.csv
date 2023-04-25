@@ -1,0 +1,16 @@
+"0","```r
+library(igraph)
+
+redratonb <-read.graph(\"GF_Tarea_01_2023_files1/bn-mouse_visual-cortex_1.edges\")
+
+bet2 <- betweenness(redratonb)
+bet2
+
+eig2 <- eigen_centrality(redratonb)
+eig2
+
+pag2 <- page_rank(redratonb)
+pag2
+
+
+```"

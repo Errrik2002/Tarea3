@@ -1,26 +1,26 @@
 {
-    "id": "C3266237",
-    "path": "C:/Users/DELL/Desktop/GitHub/genomica_funcional/scripts/Tare1.R",
-    "project_path": null,
+    "id": "AC3B63EA",
+    "path": "C:/Users/DELL/Desktop/GitHub/Tarea3/script/Tarea3.R",
+    "project_path": "script/Tarea3.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1682217623534.0,
+    "created": 1682384384498.0,
     "source_on_save": false,
     "relative_order": 5,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "293,4",
-        "scrollLine": "286"
+        "cursorPosition": "218,1",
+        "scrollLine": "205"
     },
     "folds": "",
-    "lastKnownWriteTime": 1678573492,
+    "lastKnownWriteTime": 1682396442,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1678573492,
+    "last_content_update": 1682396442045,
     "read_only": false,
     "read_only_alternatives": []
 }

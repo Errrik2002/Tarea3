@@ -1,0 +1,5 @@
+"0","```r
+library(igraph)
+karatekid<-make_graph(\"Zachary\")
+karatekid
+```"
