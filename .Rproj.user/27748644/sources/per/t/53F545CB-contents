@@ -92,7 +92,51 @@ if(FC>1){
 
 }
 
-Log2FC(WTT, KOT, 47)
+Log2FC(WTT, KOT)
+#
+
+t.test(mean(as.numeric(WTT[,1])), mean(as.numeric(KOT[,1])))
+#
+
+
+
+x <- 1
+mylistgene1 <- c()
+for (i in 1:length(colnames(WTT))) {
+  
+  pruebat <- t.test(as.numeric(WTT[-1,x]), as.numeric(KOT[-1,x]))
+  valorP <- as.numeric(pruebat[3]) #me da el valor de P
+  
+  x <- x+1
+  print(i)
+  mylistgene1[[i]] <- valorP
+}
+mylistgene1[[994]]
+
+
+
+#CICLO FOR 
+x1 <- 1
+mylistgene12 <- c()
+for (i in 1:length(colnames(WTT))) {
+  wt <- mean(as.numeric(WTT[-1,x1]))  
+  
+  
+  ko <- mean(as.numeric(KOT[-1,x1]))
+ 
+  
+  cambio <- ko/wt
+  
+  FC1 <- log2(cambio)
+  
+
+  print(i)
+  mylistgene12[[i]] <- FC1
+  x1<-x1+1
+}
+mylistgene12[[4]]
+  
+
 
 
 #################
@@ -101,6 +145,7 @@ Log2FC(WTT, KOT, 47)
 
 expresdif <- function(a,b){
   x <- 1
+  mylistgene1 <- c()
   for (i in 1:length(colnames(a))) {
     
     pruebat <- t.test(as.numeric(a[-1,x]), as.numeric(b[-1,x]))
@@ -111,11 +156,17 @@ expresdif <- function(a,b){
     }
     
     x <- x+1
+    print(i)
+    mylistgene1[[i]] <- valorP
   }
+mylistgene1
   
 }
 
-expresdif(WTT, KOT)  ###########DUDAAAAAA
+
+ expresdif(WTT, KOT)  ###########DUDAAAAAA
+
+mylistgene1
 
 
 
@@ -125,9 +176,128 @@ expresdif(WTT, KOT)  ###########DUDAAAAAA
 
 
 
+#########
+
+x <- 1
+mylistgene1 <- c()
+for (i in 1:length(colnames(WTT))) {
+  
+  pruebat <- t.test(as.numeric(WTT[-1,x]), as.numeric(KOT[-1,x]))
+  valorP <- as.numeric(pruebat[3]) #me da el valor de P
+  
+  x <- x+1
+  print(i)
+  mylistgene1[[i]] <- valorP
+}
+mylistgene1[[994]]
 
 
 
+
+################## Hacer la data frame
+
+primeracol <- c()
+primeracol <- as.numeric(mylistgene1[1])
+primeracol
+t<- 2
+for (i in 1:length(colnames(WTT))){
+
+
+primeracol <- append(primeracol, as.numeric(mylistgene1[t])) #########Esto fue para colocar el P valor en un concatenado
+
+t <- t+1
+
+}
+
+primeracolLOG <- -log10(primeracol)
+primeracolLOG
+primeracol
+###############
+
+
+
+
+mylistgene14 <- as.numeric (unlist (mylistgene12))
+segundacol <- c()
+segundacol <- as.numeric(mylistgene14[1])
+segundacol
+f<- 2
+for (i in 1:length(colnames(WTT))){
+  
+  
+  segundacol <- append(segundacol, as.numeric(mylistgene14[f]))
+  
+  f <- f+1
+  
+}
+
+
+dim(segundacol)
+
+IDref <- subset(WT, select = "ID_REF")
+dim(IDref)
+tail(volcaplot)
+primeracolLOG
+
+
+volcaplot <- data.frame(primeracolLOG, segundacol)
+volcaplot1 <- volcaplot[-22206,]
+
+
+IDrefvolcano <- cbind(volcaplot1, IDref)
+
+
+volcaplot[,1] ####DA EL PVALOR ENTONCES [2] DA EL LOGFOLD CHANGE
+volcaplot[,2]
+
+
+plot(volcaplot1[,2],volcaplot1[,1], col= ifelse(volcaplot1$primeracolLOG>1.30 & volcaplot1$segundacol<0, "blue", ifelse(volcaplot1$primeracolLOG>1.30 & volcaplot1$segundacol>0, "red", "black")))
+
+
+head(IDrefvolcano)
+############################
+#data_frame[which(data_frame$col1 %in% c("b","e") | data_frame$col2 > 4),]
+
+subexpresados <- IDrefvolcano[which(IDrefvolcano$primeracolLOG >1.3),]
+
+head(subexpresados)
+
+subexpresados1 <- subexpresados[which(subexpresados$segundacol<0),]
+subexpresados1 #########Estos son los subexpresados
+
+cincogenesSUB <- sort(subexpresados1$primeracolLOG, decreasing = T)[1:5]
+
+cincogenesSUBID<-  subexpresados1 %>% filter_all(any_vars(. %in% c(cincogenesSUB[1:5])))
+
+cincogenesSUBID
+
+#NA
+#-
+#Acad12
+#Naip2
+#Sos1
+
+
+#########SOBREEXPRESADOS
+
+sobrexpresados <- IDrefvolcano[which(IDrefvolcano$primeracolLOG >1.3),]
+
+sobrexpresados1 <- sobrexpresados[which(sobrexpresados$segundacol>0),]
+sobrexpresados1
+
+
+cincogenesSOBRE <- sort(sobrexpresados1$primeracolLOG, decreasing = T)[1:5]
+
+cincogenesSOBREID<-  sobrexpresados1 %>% filter_all(any_vars(. %in% c(cincogenesSOBRE[1:5])))
+
+cincogenesSOBREID
+
+
+#Abhd17c
+#Ddhd1,Mir5131
+#Cdh24
+#Rbm26,Gm17066
+#Ggact
 
 
 
