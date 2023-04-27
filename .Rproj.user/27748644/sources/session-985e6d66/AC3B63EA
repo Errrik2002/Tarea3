@@ -3,7 +3,7 @@
     "path": "C:/Users/DELL/Desktop/GitHub/Tarea3/script/Tarea3.R",
     "project_path": "script/Tarea3.R",
     "type": "r_source",
-    "hash": "4058376339",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1682384384498.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "197,0",
-        "scrollLine": "197"
+        "cursorPosition": "362,0",
+        "scrollLine": "345"
     },
     "folds": "",
-    "lastKnownWriteTime": 1682396442,
+    "lastKnownWriteTime": 1682555086,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1682396442045,
+    "last_content_update": 1682555086352,
     "read_only": false,
     "read_only_alternatives": []
 }
