@@ -1,0 +1,544 @@
+library(igraph)
+based<-read.csv("datA_RAW/RedAmiguesPonderadaGF2023 - Hoja 1.tsv",dec=",",sep="\t")
+View(based)
+
+
+based<- based[,-1]
+
+based
+rownames(based)<- colnames(based)
+
+
+baselim <-based[-c(3,15,32),-c(3,15,32)]
+baselim
+
+View(baselim)
+
+
+baselim<- as.matrix(baselim)
+
+diag(baselim)<- 0
+diag(baselim)
+
+#para que usamos el any???
+
+
+redcasa <- graph_from_adjacency_matrix(baselim, mode="directed", weighted=T)
+
+
+plot(redcasa)
+
+
+
+distriin <-plot(degree.distribution(redcasa, mode="in"),main= "entrada", xlab = "conexiones", ylab = "frecuencia")
+
+distrout <- plot(degree.distribution(redcasa, mode="out"), main="salida", xlab = "conexiones", ylab = "frecuencia")
+
+
+di <-degree(redcasa, mode="in")
+hist(di)
+
+
+diameter(redcasa)
+
+
+degree(redcasa, mode="in")["ERIK"]  #un valor de entrada de mi
+
+
+
+
+nopondecasa <- ifelse(baselim>=0.5,1,0) #ya funciona el ifelse, con el cambio de CSV a TSV
+
+View(nopondecasa)
+
+
+redcasa_noponde <- graph_from_adjacency_matrix(nopondecasa,mode= "directed")
+#siemrpe poner el modo que es
+
+################plots
+plot(redcasa_noponde)
+
+plot(redcasa_noponde, vertex.size=2,
+     vertex.label=NA, edge.arrow.size=.2)
+
+plot(net, vertex.shape="none", vertex.label=V(net)$media,
+     vertex.label.font=2, vertex.label.color="gray40",
+     vertex.label.cex=.7, edge.color="gray85")
+
+
+plot(net, edge.color=edge.col, edge.curved=.4)
+
+plot(net, edge.color="orange", vertex.color="gray50")
+
+plot(net, edge.arrow.size=.2, edge.color="orange",
+     vertex.color="orange", vertex.frame.color="#ffffff",
+     vertex.label=V(net)$media, vertex.label.color="black")
+
+plot(net, edge.arrow.size=.4, edge.curved=.1)
+
+plot(net, edge.arrow.size=.4,vertex.label=NA)
+
+########forma de hacer una redque pueda observarse sus propiedades
+#de pesadas o direccion de otra forma
+
+# Generate colors based on media type:
+colrs <- c("gray50", "tomato", "gold")
+V(net)$color <- colrs[V(net)$media.type]
+# Compute node degrees (#links) and use that to set node size:
+deg <- degree(net, mode="all")
+V(net)$size <- deg*3
+# We could also use the audience size value:
+V(net)$size <- V(net)$audience.size*0.6
+# The labels are currently node IDs.
+# Setting them to NA will render no labels:
+V(net)$label <- NA
+# Set edge width based on weight:
+E(net)$width <- E(net)$weight/6
+#change arrow size and edge color:
+E(net)$arrow.size <- .2
+E(net)$edge.color <- "gray80"
+  # We can even set the network layout:
+graph_attr(net, "layout") <- layout_with_lgl
+plot(net)
+
+##############plots
+
+
+
+sort(degree(redcasa_noponde, mode="in"), decreasing = T)[1:10]
+sort(degree(redcasa_noponde, mode="out"), decreasing = T)[1:10]
+
+
+which(redcasa_noponde["ANDREA",]==1)
+
+
+#####01/03/23
+
+install.packages("igraphdata")
+
+
+
+
+prac2 <- barabasi.game(30, directed=F)
+#n= numero de nodos
+#power= el valor de alfa
+#
+
+
+#nos permite crear una red de escala libre (free scale)
+#el numero dentro del parentesis nos deja decir cuantos nodos queremos la red
+prac2
+
+plot(prac2, edge.arrow.size=.4, edge.curved=.1)
+
+
+distin <- degree.distribution(prac2, mode="in")
+
+
+plot(distin)
+
+
+#fit1 <- fit_power_law(d+1, 10)
+#fit2 <- fit_power_law(d+1, 10, implementation="R.mle")
+
+
+disdeg <-degree(prac2, mode="in")
+disdeg
+
+fit1 <- fit_power_law(disdeg+1,10, implementation = "R.mle") #un ajuste a una laey de potencia
+
+#
+
+
+fit2 <- fit_power_law(disdeg+1,10)###### la alpha debe ser mayor a 1
+#pq si no no jala solo k no se como determinar el valor de alpha o algo así
+
+
+fit2$alpha
+fit2
+
+mean(disdeg)
+
+
+
+
+
+red <- barabasi.game(100, power = 1.6, directed =T )
+plot(red)
+#hacer valores de power (alpha) mas grandes hace que los nodos se conecten a uno solo
+
+mean(distances(red))
+
+
+ln(ln(100))
+
+
+
+
+##################6 de marzo 23
+
+
+library(igraph)
+
+red6ma <- random.graph.game(10, 0.3)
+
+plot(red6ma)
+
+V(red6ma)
+
+delete.vertices(red6ma, c(9,4))
+plot(red6ma)
+
+
+red6ma
+red61ma <- delete.vertices(red6ma, c(1,2)) #elimina vertices
+red61ma
+plot(red61ma)
+
+distancias6 <- distances(red61ma)
+mean(distancias6)
+
+
+
+
+diameter(red61ma)
+
+
+
+
+
+g100<-barabasi.game(100,directed = FALSE)
+plot(g100)
+
+distg100 <- distances(g100)
+
+
+
+mean(distg100)
+
+diameter(g100)
+
+
+
+
+g100 <- delete.vertices(g100, c(10,88,50,3))
+
+distg100n <- distances(g100)
+mean(distg100n)
+
+
+diameter(g100)
+
+plot(g100)
+
+
+
+g100 <- delete.vertices(g100, c(2,7,16,11))
+
+distg101 <- distances(g100)
+mean(distg101)
+
+
+diameter(g100)
+
+
+
+plot(g100)
+
+
+
+sample(g100)
+
+
+#sample()para un objeto ala zar
+
+
+delete.vertices(g100,c(sample(1:length(V(g100)),1)))
+#el 1 el ultimo es para que tome unicamente un valor, si queremos tomar 10 aelatorios
+#podemos quitarlos de golpe
+
+
+eliminv <- function(x){
+  for(i in 1:10){ #se abre el diclo for para hacerlo 10 veces, puede ser más o mneos
+    x1 <- delete.vertices(x,c(sample(1:length(V(x)),1))) #hae el proceso de quitar un nodo aleatorio, el 1 que tiene puede quitar
+    #1 pero si ponemos 10quita 10
+  x2 <- diameter(x1) #calculamos el diametro o podemos sacar el mean_distance
+  
+  print(paste(i, x2 )) #imprimir al correr la funcion
+  
+}
+}
+#como hacer hist con los datos de cada uno para comparar
+
+
+
+
+eliminv(g100)
+
+
+g1000<-barabasi.game(1000,directed = FALSE)
+plot(g1000)
+
+
+eliminv(g1000)
+
+
+
+###########
+
+
+library(igraph)
+
+redraton <-read.graph("datA_RAW/bn-mouse_visual-cortex_1.edges")
+
+redratonmat <- as.matrix(redraton)
+
+redbrainmo <- graph_from_adj_list(redratonmat, mode = "in")
+
+plot(redraton)
+
+
+redraton
+
+grupos <- edge.betweenness.community(redraton, directed="in")
+
+
+plot(grupos, redraton) #nos da la red, pero con los grupos formados por el metodo
+
+# primero el objeto del metodo de clusterizacion 
+#y el otro la red normal
+
+
+
+metspin <- spinglass.community(redraton)
+
+
+plot(metspin, redraton)
+
+
+##############cluster de amigos
+redcasa
+
+
+
+
+
+
+
+getwd()
+spinred <- spinglass.community(redcasa )
+plot(spinred, redcasa)
+
+
+
+betmetred <- edge.betweenness.community(redcasa)
+plot(betmetred, redcasa)
+
+
+###########8 DE MARZO DEL 23
+
+
+install.packages("BoolNet")
+install.packages("Minet")
+install.packages("WGCNA")
+install.packages("STRINGdb")
+
+
+
+################13 de Marzo 23#############
+library(BoolNet)
+
+lared <- loadNetwork("datA_RAW/REDGENES.txt") #cargo el archivo de texto, para quen me genere
+#los 4 genes y con las reglas
+
+lared #dice los genes y las reglas
+
+atract <- getAttractors(lared) #saca los valores de atractores
+
+atract
+
+
+plotAttractors(atract) #grafica los atractores de manera de 1x1, poderia dividirse el layout
+#para poder ver las 2 en una sola ventana, sale en barritas
+
+#puede dar el porcentaje de los atractores
+#atractores corresponde a FENOTIPOS
+
+
+
+plotStateGraph(atract, drawLabels = T)# imprime las cuencas de atracción
+#y nos dice el nodo etiquetado
+
+
+
+
+
+#########
+library(BoolNet)
+otrared<-loadSBML("datA_RAW/BIOMD0000000592_url.xml")
+otrared
+Linatrac <- getAttractors(otrared)
+Linatrac
+plotAttractors(Linatrac)
+
+
+plotStateGraph(Linatrac, drawLabels = F)
+
+####pagina biomodels ########
+
+a_otrared<-loadSBML("datA_RAW/BIOMD0000000593_url.xml")
+a_Linatrac <- getAttractors(a_otrared)
+
+a_Linatrac
+plotAttractors(a_Linatrac)
+
+
+plotStateGraph(a_Linatrac, drawLabels = F)
+
+
+
+
+
+
+
+#######15 de Marzo del 2023##########
+
+
+library(WGCNA)
+
+library(igraph)
+coexp <- read.csv("datA_RAW/Matrix_cogustos.csv")
+
+
+View(coexp)
+
+coexp <- coexp[,-1]
+
+rownames(coexp) <- coexp[,1]
+
+
+
+View(coexp)
+
+coexp <- as.matrix(coexp)
+View(coexp)
+dim(coexp) ######ver las dimensiones renglon columna
+
+coexp <- coexp[-30,]
+
+
+correxp <- cor(t(coexp)) #hay que hacer la transpuesta para que la relacion sea entre nosotros y no entre series
+
+correxp
+plot(correxp)
+
+diag(correxp)<- 0
+
+ #eliminar a norma
+min(correxp)
+
+
+max(correxp)
+
+correxp <- (correxp+1)/2
+correxp
+
+diag(correxp)<- 0
+
+
+class(correxp)
+
+
+
+######### la matrix no ponderada y la red de esta
+red_corre <- ifelse(correxp>=0.8,1,0) #un valor mas alto pq al hacer la conversion de 1 /2 el 0.5 es como cero
+red_corre
+red_cogustos <- graph_from_adjacency_matrix(red_corre, mode = "undirected")
+plot(red_cogustos)
+
+betmetred1 <- edge.betweenness.community(red_cogustos)
+plot(betmetred1, red_cogustos)
+
+#no dirigida por que nosotros somos los nodos y conectamos entre mismas
+
+#todos conectado con todos
+
+
+
+
+############ red no ponde
+
+correxp
+
+red_pesa <- graph_from_adjacency_matrix(correxp, mode= "undirected", weighted = T)
+plot(red_pesa)
+
+
+
+  E(red_pesa)$width <- E(red_pesa)$weight*2
+
+  
+
+
+############ 22 de Marzo del 2023#############
+  
+  
+  
+
+###########27 de Marzo################
+  
+
+install.packages("hexbin")
+
+
+BiocManager::install("limma", force = T)  
+  
+  
+
+
+########## 29 de Marzo 2023 ################
+library(BoolNet)
+
+kincenal <- loadNetwork("datA_RAW/quincenal2.txt")  
+
+
+atrakinc <- getAttractors(kincenal)  
+
+plotAttractors(atrakinc)  
+
+plotStateGraph(atrakinc, drawLabels = T)
+
+
+
+
+
+
+################
+
+
+###microarreglos######
+
+library(affy)
+library(mouse4302.db)
+library(mouse4302cdf)
+library(pvclust)
+library(vsn)
+library(limma)
+library(hexbin)
+
+
+setwd()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
